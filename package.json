@@ -7,6 +7,7 @@
   "author": "Kevin Lee <kevinmlee.x@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "config.json": "0.0.4",
     "discord.js": "^11.1.0",
     "uws": "^0.14.5"
   }
