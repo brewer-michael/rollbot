@@ -10,5 +10,8 @@
     "config.json": "0.0.4",
     "discord.js": "^11.1.0",
     "uws": "^0.14.5"
+  },
+  "scripts": {
+    "start": "node rollbot.js"
   }
 }
