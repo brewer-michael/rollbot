@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 
+//uncomment to run locally
 //const config = require('./config.json');
 const client = new Discord.Client();
 
@@ -47,4 +48,8 @@ client.on('message', (message) => {
   }
 });
 
-client.login(config.token);
+//use this to run locally
+//client.login(config.token);
+
+//heroku environment variable
+client.login(process.env.token);
