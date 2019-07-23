@@ -1,4 +1,9 @@
 const Discord = require('discord.js');
+// require the dice-roller library
+const { DiceRoller } = require('rpg-dice-roller');
+
+// create a new instance of the DiceRoller
+const diceRoller = new DiceRoller();
 
 //uncomment to run locally
 //const config = require('./config.json');
@@ -18,9 +23,16 @@ client.on('message', (message) => {
         (Math.floor(Math.random() * 6) + 1) + ' ' + rollFlavor
       );
     }
-
+    var npmDice = '';
+    var npmroller = false;
+    if (!isNaN(messageWords[1][0] /1) && messageWords[1].includes('L')) {
+      // roll the dice
+      npmDice = diceRoller.roll(messageWords[1]);
+      npmroller = true;
+    }
     let sides = messageWords[1]; // !roll 20
     let rolls = 1;
+    let keep = 1;
     if (!isNaN(messageWords[1][0] / 1) && messageWords[1].includes('d')) {
       // !roll 4d20
       rolls = messageWords[1].split('d')[0] / 1;
@@ -33,13 +45,18 @@ client.on('message', (message) => {
     if (isNaN(sides) || isNaN(rolls)) {
       return;
     }
-    if (rolls > 1) {
-      const rollResults = [];
-      for (let i = 0; i < rolls; i++) {
-        rollResults.push(Math.floor(Math.random()*sides)+1);
-      }
-      const sum = rollResults.reduce((a,b) => a + b);
-      return message.reply(`[${rollResults.toString()}] ${rollFlavor}`);
+    if (rolls > 1 && npmroller == false) {
+        const rollResults = [];
+        for (let i = 0; i < rolls; i++) {
+          rollResults.push(Math.floor(Math.random()*sides)+1);
+        }
+        const sum = rollResults.reduce((a,b) => a + b);
+        return message.reply(`[${rollResults.toString()}] ${rollFlavor}`);
+      }  else if (npmroller == true) {
+      // roll the dice
+      return message.reply(
+        npmDice + ' ' + rollFlavor
+      )
     } else {
       return message.reply(
         (Math.floor(Math.random() * sides) + 1) + ' ' + rollFlavor
