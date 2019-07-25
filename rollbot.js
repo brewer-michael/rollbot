@@ -6,7 +6,7 @@ const { DiceRoller } = require('rpg-dice-roller');
 const diceRoller = new DiceRoller();
 
 //uncomment to run locally
-const config = require('./config.json');
+//const config = require('./config.json');
 const client = new Discord.Client();
 
 client.on('ready', () => {
@@ -73,7 +73,7 @@ client.on('message', (message) => {
 });
 
 //use this to run locally
-client.login(config.token);
+//client.login(config.token);
 
 //heroku environment variable
-//client.login(process.env.token);
+client.login(process.env.token);
