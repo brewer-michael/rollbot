@@ -16,6 +16,8 @@ client.on('ready', () => {
 client.on('message', (message) => {
   const messageWords = message.content.split(' ');
   const rollFlavor = messageWords.slice(2).join(' ');
+  var npmDice = '';
+  var npmroller = false;
   if (messageWords[0] === '!roll') {
     if (messageWords.length === 1) {
       // !roll
@@ -23,18 +25,22 @@ client.on('message', (message) => {
         (Math.floor(Math.random() * 6) + 1) + ' ' + rollFlavor
       );
     }
-    var npmDice = '';
-    var npmroller = false;
-    if (!isNaN(messageWords[1][0] /1) && messageWords[1].includes('d')) {
+    if (messageWords[1].includes('d')) {
       // roll the dice
       var userDice = messageWords[1].toString();
-      npmDice = diceRoller.roll(userDice);
-      //npmroller = true;
+      console.log(userDice);
+      diceRoller.roll(userDice);
+      let latestRoll = diceRoller.log.shift();
+      npmDice = latestRoll.toString();
+      npmroller = true;
+      return message.reply(npmDice);
+        console.log(npmDice);
+        console.log(npmroller);
     }
     let sides = messageWords[1]; // !roll 20
     let rolls = 1;
     let keep = 1;
-    if (!isNaN(messageWords[1][0] / 1) && messageWords[1].includes('d')) {
+    if (!isNaN(messageWords[1][0] / 1) && messageWords[1].includes('bob')) {
       // !roll 4d20
       rolls = messageWords[1].split('d')[0] / 1;
       sides = messageWords[1].split('d')[1];
@@ -46,18 +52,18 @@ client.on('message', (message) => {
     if (isNaN(sides) || isNaN(rolls)) {
       return;
     }
-    if (rolls > 1 && npmroller == false) {
+    if (rolls > 1 && npmroller === false) {
         const rollResults = [];
         for (let i = 0; i < rolls; i++) {
           rollResults.push(Math.floor(Math.random()*sides)+1);
         }
         const sum = rollResults.reduce((a,b) => a + b);
         return message.reply(`[${rollResults.toString()}] ${rollFlavor}`);
-      }  else if (npmroller == true) {
+      } else if (npmroller === true) {
       // roll the dice
-      return message.reply(
-        npmDice + ' ' + rollFlavor
-      )
+      return message.reply(npmDice);
+        console.log(npmDice);
+        console.log(npmroller);
     } else {
       return message.reply(
         (Math.floor(Math.random() * sides) + 1) + ' ' + rollFlavor
