@@ -27,7 +27,8 @@ client.on('message', (message) => {
     var npmroller = false;
     if (!isNaN(messageWords[1][0] /1) && messageWords[1].includes('d')) {
       // roll the dice
-      npmDice = diceRoller.roll(messageWords[1]);
+      var userDice = messageWords[1].toString();
+      npmDice = diceRoller.roll(userDice);
       //npmroller = true;
     }
     let sides = messageWords[1]; // !roll 20
